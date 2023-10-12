@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaxin.cms.dao.ArticleDao">
+
+    <!--
+     统计文章数量 getArticleNumByCategoryId
+        要求1：文章存在(未被删除)
+        要求2：文章属于指定的2栏目下
+        要求3：文章的拥有者user_id存在(未被删除)
+     -->
+    <select id="getArticleNumByCategoryId" resultType="int">
+        select count(*)
+        from cms_article
+        where deleted = 0
+          and category_id = #{categoryId}
+          and user_id in (
+            select id
+            from cms_user
+            where deleted = 0
+        )
+    </select>
+
+    <resultMap id="BaseArticleResult" type="com.yaxin.cms.bean.Article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="status" column="status"/>
+        <result property="likeNum" column="like_num"/>
+        <result property="dislikeNum" column="dislike_num"/>
+        <result property="readNum" column="read_num"/>
+        <result property="userId" column="user_id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="charged" column="charged"/>
+        <result property="publishTime" column="publish_time"/>
+    </resultMap>
+
+    <resultMap id="ArticleWithCommentResult" type="com.yaxin.cms.bean.extend.ArticleExtend"
+        extends="BaseArticleResult">
+        <collection property="comments" resultMap="BaseArticleResult"></collection>
+    </resultMap>
+
+    <select id="selectByIdWithComments" resultMap="ArticleWithCommentResult">
+        select a.*,
+               c.id cid, c.content ccontent, c.publish_time cpublish_time,
+               c.user_id cuser_id, c.article_id carticle_id
+        from cms_article a, cms_comment c
+        where a.id = c.article_id
+          and a.deleted = 0
+          /* and c.deleted = 0 */
+          and a.id = #{id}
+        order by c.publish_time DESC
+        limit 3
+    </select>
+
+</mapper>

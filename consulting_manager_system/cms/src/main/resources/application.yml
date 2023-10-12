@@ -1,0 +1,74 @@
+server:
+  port: 8989
+spring:
+  #新增内容：上传文件大小配置
+  servlet:
+    multipart:
+      # 单个文件上传的最大大小 默认为 1MB
+      max-file-size: 10MB
+      # 单次请求文件上传的最大大小 默认值为 10MB
+      max-request-size: 100MB
+  redis:
+    #数据库索引
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password:
+    jedis:
+      pool:
+        #最大连接数
+        max-active: 8
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        #最大空闲
+        max-idle: 8
+        #最小空闲
+        min-idle: 0
+        #连接超时时间
+    timeout: 10000
+  datasource:
+    #mysql8??
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://218.4.196.178:20331/230308-cms?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
+#    url: jdbc:mysql://127.0.0.1:3306/230308-cms?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #mybatis:
+#  config-location: classpath:mybatis-config.xml
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.briup.cms.bean
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 雪花算法全局设置
+      id-type: assign_id
+      # 全局配置 逻辑删除字段及取值
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+mybatis:
+  configuration:
+    #日志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启驼峰
+    map-underscore-to-camel-case: true
+  # mapper.xml 文件夹所在位置
+  mapper-locations: classpath:mapper/**/*.xml
+
+# 文件上传相关配置
+upload:
+  # 七牛云OSS相关配置
+  oss:
+    # 配置AK
+    accessKey: "4P7-_JgQ3y1v3NVosHsLWZYWNnnx4QOXVnMuXtsY"
+    # 配置SK
+    secretKey: "XIdDRGtsm-0ZkBskGVww-EhAvrCgG9GPq_1656hD"
+    # 配置桶
+    bucket: "horry"
+    # 配置基础域名
+    baseUrl: "http://s03gbclr1.hd-bkt.clouddn.com/"

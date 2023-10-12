@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yaxin.cms.dao.CommentDao">
+
+    <resultMap id="BaseCommentResult" type="com.yaxin.cms.bean.Comment">
+        <id column="cid" property="id"/>
+        <result column="ccontent" property="content"/>
+        <result column="cuser_id" property="userId"/>
+        <result column="carticle_id" property="articleId"/>
+    </resultMap>
+
+    <resultMap id="CommentExtendResult" type="com.yaxin.cms.bean.extend.CommentExtend">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="article_id" property="articleId"/>
+        <result column="publish_time" property="publishTime"/>
+        <association property="author" column="user_id"
+                     select="com.yaxin.cms.dao.UserDao.queryUserById"/>
+        <collection property="childComments" column="id"
+                    select="com.yaxin.cms.dao.SubcommentDao.queryByParentId"/>
+    </resultMap>
+
+    <resultMap id="CommentExtendBaseResult" type="com.yaxin.cms.bean.extend.CommentExtend">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="article_id" property="articleId"/>
+        <result column="publish_time" property="publishTime"/>
+    </resultMap>
+
+
+
+    <select id="query" resultMap="CommentExtendResult">
+        select id,content,publish_time,user_id,article_id
+        from cms_comment
+        where deleted = 0
+            and user_id in (
+                select id
+                from cms_user
+                where deleted = 0
+            )
+            and article_id in (
+                select id
+                from cms_article
+                where deleted = 0
+            )
+        <if test="articleId != null">
+            and article_id = #{articleId}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+        <if test="keyword != null">
+            and content like concat('%', #{keyword}, '%')
+        </if>
+        <if test="startTime != null">
+            and publish_time >= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and publish_time <![CDATA[<=]]> #{endTime}
+        </if>
+        order by publish_time desc
+    </select>
+
+    <select id="queryByArticleId" resultMap="CommentExtendResult">
+        select *
+        from cms_comment
+        where deleted = 0
+            and user_id in (
+                select id
+                from cms_user
+                where deleted = 0
+            )
+            and article_id in (
+                select id
+                from cms_article
+                where deleted = 0
+            )
+            and article_id = #{articleId}
+        order by publish_time desc
+    </select>
+
+
+</mapper>

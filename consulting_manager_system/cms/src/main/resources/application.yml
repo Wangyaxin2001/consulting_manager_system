@@ -29,10 +29,9 @@ spring:
   datasource:
     #mysql8??
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://218.4.196.178:20331/230308-cms?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=GMT%2B8
-#    url: jdbc:mysql://127.0.0.1:3306/230308-cms?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/cms?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 123
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

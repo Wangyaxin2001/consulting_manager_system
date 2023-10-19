@@ -8,13 +8,13 @@
         <version>2.7.14</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.briup</groupId>
-    <artifactId>cms</artifactId>
+    <groupId>com.yaxin</groupId>
+    <artifactId>consulting_manager_system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>cms</name>
     <description>cms</description>
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>

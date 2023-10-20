@@ -41,7 +41,7 @@ public class LogAspect {
 
 
 	//定义切入点: 当执行Controller包下的方法 并且方法上添加了日志注解 需要使用切面增强
-	@Pointcut("execution(* com.briup.cms.web.controller.*.*(..)) && @annotation(com.yaxin.cms.aop.Logging)")
+	@Pointcut("execution(* com.yaxin.cms.web.controller.*.*(..)) && @annotation(com.yaxin.cms.aop.Logging)")
 	public void pointcut() {
 	}
 

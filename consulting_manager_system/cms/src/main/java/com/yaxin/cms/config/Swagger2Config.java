@@ -38,7 +38,7 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 //传入要扫描的包结构
-                .apis(RequestHandlerSelectors.basePackage("com.briup.cms.web.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.yaxin.cms.web.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface CategoryDao extends BaseMapper<Category> {
 
-    //查询栏目表中最大的order_num值
+    //查询栏目表中最大的order_num（序号）值
     Integer getMaxOrderNum();
 
     //查询父栏目下的子栏目

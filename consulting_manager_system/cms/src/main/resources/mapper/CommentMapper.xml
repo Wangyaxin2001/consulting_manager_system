@@ -3,10 +3,10 @@
 <mapper namespace="com.yaxin.cms.dao.CommentDao">
 
     <resultMap id="BaseCommentResult" type="com.yaxin.cms.bean.Comment">
-        <id column="cid" property="id"/>
-        <result column="ccontent" property="content"/>
-        <result column="cuser_id" property="userId"/>
-        <result column="carticle_id" property="articleId"/>
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="user_id" property="userId"/>
+        <result column="article_id" property="articleId"/>
     </resultMap>
 
     <resultMap id="CommentExtendResult" type="com.yaxin.cms.bean.extend.CommentExtend">

@@ -64,10 +64,10 @@ upload:
   # 七牛云OSS相关配置
   oss:
     # 配置AK
-    accessKey: "4P7-_JgQ3y1v3NVosHsLWZYWNnnx4QOXVnMuXtsY"
+    accessKey: "dIq_LdRGR76__coyuOrGYKk1iAlnrPnVvaPIC5hx"
     # 配置SK
-    secretKey: "XIdDRGtsm-0ZkBskGVww-EhAvrCgG9GPq_1656hD"
+    secretKey: "eX28RUhmOTnWz5NX2c6Nq2lJjQd9AgrV0GjofIPY"
     # 配置桶
-    bucket: "horry"
+    bucket: "cms-picture"
     # 配置基础域名
-    baseUrl: "http://s03gbclr1.hd-bkt.clouddn.com/"
+    baseUrl: "http://s2z2o7sbf.hd-bkt.clouddn.com/"

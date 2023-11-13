@@ -97,7 +97,6 @@ public class RedisUtil {
         if(!redisTemplate.opsForHash().hasKey(key,hashKey)){
             hset(key,hashKey,0);
         }
-
         // 浏览量自增
         Integer view_count = Math.toIntExact(redisTemplate.opsForHash().increment(key,hashKey,1));
         return view_count;

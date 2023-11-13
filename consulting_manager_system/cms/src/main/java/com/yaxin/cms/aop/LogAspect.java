@@ -39,7 +39,6 @@ public class LogAspect {
 	@Autowired
 	private Gson gson;
 
-
 	//定义切入点: 当执行Controller包下的方法 并且方法上添加了日志注解 需要使用切面增强
 	@Pointcut("execution(* com.yaxin.cms.web.controller.*.*(..)) && @annotation(com.yaxin.cms.aop.Logging)")
 	public void pointcut() {
@@ -50,11 +49,10 @@ public class LogAspect {
 	public Object around(ProceedingJoinPoint pjp) {
 		//设置处理请求的开始时间
 		Long start = System.currentTimeMillis();
-
 		//日志对象
 		Log sysLog = new Log();
-
 		//获取接口信息,即接口的用途描述
+		//getSignature()表示获取封装了署名信息的对象,在该对象中可以获取到目标方法名,所属类的Class等信息
 		MethodSignature signature = (MethodSignature) pjp.getSignature();
 		Method method = signature.getMethod();
 		sysLog.setBusinessName(method.getAnnotation(Logging.class).value());
@@ -62,7 +60,6 @@ public class LogAspect {
 		//获取请求的参数(即方法的入参)
 		sysLog.setParamsJson(gson.toJson(pjp.getArgs()));
 		log.info("请求参数为:{}", sysLog.getParamsJson());
-
 		//根据请求上下文 获取请求属性
 		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		//获取请求

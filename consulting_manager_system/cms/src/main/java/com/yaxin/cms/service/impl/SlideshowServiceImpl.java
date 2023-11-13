@@ -37,7 +37,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 	@Override
 	public void saveOrUpdate(Slideshow slideshow) {
 		Integer id = slideshow.getId();
-
 		//1.判断轮播图url是否唯一
 		String url = slideshow.getUrl();
 		//url唯一标识
@@ -50,7 +49,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 					flag = true;
 				}
 			}
-
 			//判断url是否唯一
 			if(flag == false) {
 				LambdaQueryWrapper<Slideshow> qw = new LambdaQueryWrapper<>();
@@ -58,7 +56,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 				Slideshow s = slideshowDao.selectOne(qw);
 				if (s != null)
 					throw new ServiceException(ResultCode.SLIDESHOW_URL_EXISTED);
-
 				// 重置图片url更新时间
 				slideshow.setUploadTime(LocalDateTime.now());
 			}
@@ -76,7 +73,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 			Slideshow s = slideshowDao.selectById(id);
 			if (s == null)
 				throw new ServiceException(ResultCode.SLIDESHOW_NOT_EXISTED);
-
 			//3.2 更新操作
 			slideshowDao.updateById(slideshow);
 		}
@@ -88,7 +84,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 		qw.eq(Slideshow::getStatus, "启用");
 		qw.orderByDesc(Slideshow::getUploadTime);
 		List<Slideshow> list = slideshowDao.selectList(qw);
-
 		if (list == null || list.size() == 0)
 			throw new ServiceException(ResultCode.DATA_NONE);
 
@@ -103,12 +98,9 @@ public class SlideshowServiceImpl implements ISlideshowService {
 		qw.eq(StringUtils.hasText(status), Slideshow::getStatus, status)
 				.like(StringUtils.hasText(desc), Slideshow::getDescription, desc)
 				.orderByDesc(Slideshow::getUploadTime);
-
 		slideshowDao.selectPage(p, qw);
-
 		if (p.getTotal() == 0)
 			throw new ServiceException(ResultCode.DATA_NONE);
-
 		return p;
 	}
 
@@ -117,7 +109,6 @@ public class SlideshowServiceImpl implements ISlideshowService {
 		if (ids == null ||ids.isEmpty()){
 			throw new ServiceException(ResultCode.PARAM_IS_BLANK);
 		}
-
 		//根据ids查找轮播图
 		LambdaQueryWrapper<Slideshow> qw = new LambdaQueryWrapper<>();
 		qw.in(Slideshow::getId, ids);

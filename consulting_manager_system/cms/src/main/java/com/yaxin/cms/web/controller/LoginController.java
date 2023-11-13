@@ -37,7 +37,6 @@ public class LoginController {
     public Result login(@RequestBody LoginParam param) {
         //对密码加密与数据库进行比对
         User user = userService.login(param.getUsername(), MD5Utils.MD5(param.getPassword()));
-
         //新增token 相关代码
         Map<String,Object> map = new HashMap<>();
         map.put("userId",user.getId());
@@ -46,7 +45,6 @@ public class LoginController {
         map.put("isVip", user.getIsVip());
         map.put("roleId", user.getRoleId());
         String token = JwtUtil.generateJwt(map);
-
         return Result.success(token);
     }
 

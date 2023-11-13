@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author shaoyb
@@ -35,7 +36,6 @@ public class UserServiceImpl implements IUserService {
 		//1.1 null值判断
 		if (username == null || password == null)
 			throw new ServiceException(ResultCode.PARAM_IS_BLANK);
-
 		//1.2 空值判断 “”、“ ”、“   ”、“\t”
 		username = username.trim();
 		password = password.trim();
@@ -117,7 +117,6 @@ public class UserServiceImpl implements IUserService {
 		if (ids == null || ids.isEmpty()) {
 			throw new ServiceException(ResultCode.PARAM_IS_BLANK);
 		}
-
 		//2.删除指定用户
 		userDao.deleteBatchIds(ids);
 	}
@@ -163,14 +162,11 @@ public class UserServiceImpl implements IUserService {
 	public IPage<UserExtend> query(Integer pageNum, Integer pageSize, String username, String status, Integer roleId, Integer isVip) {
 		if (pageNum == null || pageSize == null)
 			throw new ServiceException(ResultCode.PARAM_IS_BLANK);
-
 		//关键：程序员自行书写sql语句 完成多表连接查询，如何进行分页处理？
 		IPage<UserExtend> page = new Page<>(pageNum, pageSize);
 		userDao.queryAllUserWithRole(page, username, status, roleId, isVip);
-
         System.out.println(page.getTotal());
         System.out.println(page.getRecords().size());
-
 		return page;
 	}
 }

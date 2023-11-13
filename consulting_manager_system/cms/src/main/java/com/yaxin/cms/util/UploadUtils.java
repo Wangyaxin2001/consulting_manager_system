@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-public class UploadUtils {
+public class  UploadUtils {
 
 	@Autowired
 	private UploadProperties uploadProperties;

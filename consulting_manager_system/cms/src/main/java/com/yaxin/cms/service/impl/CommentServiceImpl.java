@@ -219,7 +219,6 @@ public class CommentServiceImpl implements ICommentService {
         commentDao.query(page, param.getKeyword(),
                 param.getUserId(), param.getArticleId(),
                 param.getStartTime(), param.getEndTime());
-
         return page;
     }
 }

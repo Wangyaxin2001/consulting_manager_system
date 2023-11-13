@@ -20,12 +20,10 @@ import java.util.List;
 public class VipTimerTask {
     @Autowired
     private UserDao userDao;
-
     // 每20分钟运行1次
     @Scheduled(cron = "0 0/20 * * * ?")
     public void vipExpirationCheck() {
         System.out.println("in VipTimerTask ..." + LocalDateTime.now());
-
         // 1.获取所有的vip用户
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getIsVip, 1);

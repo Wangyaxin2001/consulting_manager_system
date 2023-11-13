@@ -19,15 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-03-10
  */
 @RestController
-@RequestMapping("/auth/role")
+@RequestMapping("/role")
 public class RoleController {
 
 	@Autowired
 	private IRoleService roleService;
 
 	@ApiOperation("获取所有角色信息")
-	//@GetMapping("/getAllRole")
-	@GetMapping("/getAll")
+	@GetMapping("/getAllRole")
 	public Result getAll(){
 		return Result.success(roleService.list());
 	}
